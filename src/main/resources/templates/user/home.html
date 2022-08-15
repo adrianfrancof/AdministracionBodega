@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Inicio Bodega</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css
+"
+	integrity="sha384-
+ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="#">Bodega</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNav">
+	    <ul class="navbar-nav ml-auto">
+	      <li class="nav-item">
+	        <a class="nav-link" th:href="@{/logout}">Cerrar</a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+
+	<div class="container mt-5">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<form th:action="@{/users}" method="post" th:object="${detalle}">
+				<div class="form-group">
+					<input type="text" th:field="*{precio}" class="form-control"
+						id="precio" aria-describedby="precioHelp"
+						placeholder="Ingresa el precio"> <small
+						id="inClave" class="form-text text-muted">Precio del Material.</small>
+				</div>
+				<div class="form-group">
+					<input type="text" th:field="*{nombre}" class="form-control"
+						id="nombre" aria-describedby="nombreHelp"
+						placeholder="Ingresa el nombre"> <small id="inValor"
+						class="form-text text-muted">Nombre del Material.</small>
+				</div>
+				<div class="form-group">
+					<input type="text" th:field="*{bodega.nombre}" class="form-control"
+						id="bodega" aria-describedby="bodegaHelp"
+						placeholder="Ingresa el nombre de la bodega"> <small id="inValor"
+						class="form-text text-muted">Nombre de la bodega.</small>
+				</div>
+				<button type="submit" class="btn btn-primary">Agregar</button>
+			</form>
+		</div>
+		<div class="col-sm-4"></div>
+		<div class="col-sm-12 mt-5">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Precio</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Bodega</th>
+						<th scope="col">Ingreso</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="material: ${valores}">
+						<td th:text="${material.precio}" />
+						<td th:text="${material.nombre}" />
+						<td th:text="${material.bodega.nombre}" />
+						<td th:text="${#dates.format(new java.util.Date(material.ingreso), 'dd-MM-yyyy')}" />
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
